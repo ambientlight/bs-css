@@ -36,6 +36,7 @@ type color = [
   | `hsla(int, int, int, float)
   | `transparent
   | `hex(string)
+  | `raw(string)
   | `currentColor
 ];
 
@@ -44,6 +45,7 @@ let rgba : (int, int, int, float) => [> | `rgba(int, int, int, float)];
 let hsl : (int, int, int) => [> | `hsl(int, int, int)];
 let hsla : (int, int, int, float) => [> | `hsla(int, int, int, float)];
 let hex : string => [> | `hex(string)];
+let raw: string => [> | `raw(string)];
 let transparent : [> | `transparent];
 let currentColor : [> | `currentColor];
 
