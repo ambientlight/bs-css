@@ -889,6 +889,7 @@ let background = x =>
     | `hsl(h, s, l) => "hsl(" ++ join(", ", [string_of_int(h), string_of_int(s) ++ "%", string_of_int(l) ++ "%"]) ++ ")"
     | `hsla(h, s, l, a) => "hsla(" ++ join( ", ", [ string_of_int(h), string_of_int(s) ++ "%", string_of_int(l) ++ "%", string_of_float(a) ]) ++ ")"
     | `hex(s) => "#" ++ s
+    | `raw(s) => s
     | `transparent => "transparent"
     | `currentColor => "currentColor"
     | `linearGradient(angle, stops) => "linear-gradient(" ++ string_of_angle(angle) ++ ", " ++ string_of_stops(stops) ++ ")"
