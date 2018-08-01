@@ -122,6 +122,7 @@ type color = [
   | `hsl(int, int, int)
   | `hsla(int, int, int, float)
   | `hex(string)
+  | `raw(string)
   | `transparent
   | `currentColor
 ];
@@ -133,6 +134,7 @@ let string_of_color =
   | `hsl(h, s, l) => "hsl(" ++ join(", ", [string_of_int(h), string_of_int(s) ++ "%", string_of_int(l) ++ "%"]) ++ ")"
   | `hsla(h, s, l, a) => "hsla(" ++ join( ", ", [ string_of_int(h), string_of_int(s) ++ "%", string_of_int(l) ++ "%", string_of_float(a) ]) ++ ")"
   | `hex(s) => "#" ++ s
+  | `raw(s) => s
   | `transparent => "transparent"
   | `currentColor => "currentColor";
 
@@ -141,6 +143,7 @@ let rgba = (r, g, b, a) => `rgba((r, g, b, a));
 let hsl = (h, s, l) => `hsl((h, s, l));
 let hsla = (h, s, l, a) => `hsla((h, s, l, a));
 let hex = x => `hex(x);
+let raw = x => `raw(x);
 
 let currentColor = `currentColor;
 
