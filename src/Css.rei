@@ -241,7 +241,11 @@ type length = [
 
 type repeatValue = [ | `autoFill | `autoFit | `num(int)];
 type trackLength = [ length | `fr(float) | `minContent | `maxContent];
-type gridLength = [ trackLength | `repeat(repeatValue, trackLength)];
+type gridLength = [
+  trackLength
+  | `repeat(repeatValue, trackLength)
+  | `minMax(trackLength, trackLength)
+];
 
 let ch: float => [> | `ch(float)];
 let cm: float => [> | `cm(float)];

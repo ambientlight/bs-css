@@ -857,7 +857,11 @@ let repeatValueToJs =
   | `num(x) => x->string_of_int;
 
 type trackLength = [ length | `fr(float) | `minContent | `maxContent];
-type gridLength = [ trackLength | `repeat(repeatValue, trackLength)];
+type gridLength = [
+  trackLength
+  | `repeat(repeatValue, trackLength)
+  | `minMax(trackLength, trackLength)
+];
 
 let gridLengthToJs =
   fun
@@ -885,7 +889,9 @@ let gridLengthToJs =
   | `minContent => "min-content"
   | `maxContent => "max-content"
   | `repeat(n, x) =>
-    "repeat(" ++ n->repeatValueToJs ++ ", " ++ string_of_dimension(x) ++ ")";
+    "repeat(" ++ n->repeatValueToJs ++ ", " ++ string_of_dimension(x) ++ ")"
+  | `minMax(a, b) =>
+    "minmax(" ++ string_of_dimension(a) ++ ", " ++ string_of_dimension(b) ++ ")";
 
 let string_of_dimensions = dimensions =>
   dimensions |> List.map(gridLengthToJs) |> String.concat(" ");
