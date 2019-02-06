@@ -246,6 +246,12 @@ type gridLength = [
   | `repeat(repeatValue, trackLength)
   | `minMax(trackLength, trackLength)
 ];
+type gridItemPlacement = [
+  | `num(int)
+  | `spanNum(int)
+  | `spanStr(string)
+  | `auto
+];
 
 let ch: float => [> | `ch(float)];
 let cm: float => [> | `cm(float)];
@@ -484,12 +490,12 @@ let gridAutoFlow:
     | `unset
   ] =>
   rule;
-let gridColumn: (int, int) => rule;
-let gridRow: (int, int) => rule;
-let gridColumnStart: int => rule;
-let gridColumnEnd: int => rule;
-let gridRowStart: int => rule;
-let gridRowEnd: int => rule;
+let gridColumn: (gridItemPlacement, gridItemPlacement) => rule;
+let gridRow: (gridItemPlacement, gridItemPlacement) => rule;
+let gridColumnStart: gridItemPlacement => rule;
+let gridColumnEnd: gridItemPlacement => rule;
+let gridRowStart: gridItemPlacement => rule;
+let gridRowEnd: gridItemPlacement => rule;
 let gridColumnGap: length => rule;
 let gridRowGap: length => rule;
 let gridGap: length => rule;

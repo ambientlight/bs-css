@@ -862,6 +862,13 @@ type gridLength = [
   | `repeat(repeatValue, trackLength)
   | `minMax(trackLength, trackLength)
 ];
+type gridItemPlacement = [ | `num(int) | `spanNum(int) | `spanStr(string) | `auto];
+let gridItemPlacementToJs =
+  fun
+  | `num(lineValue) => string_of_int(lineValue)
+  | `spanNum(num) => "span" ++ " " ++ string_of_int(num)
+  | `spanStr(str) => "span" ++ " " ++ str
+  | `auto => "auto";
 
 let gridLengthToJs =
   fun
@@ -909,14 +916,14 @@ let gridAutoRows = dimensions =>
   d("gridAutoRows", string_of_dimension(dimensions));
 
 let gridColumn = (start, end') =>
-  d("gridColumn", string_of_int(start) ++ " / " ++ string_of_int(end'));
+  d("gridColumn", gridItemPlacementToJs(start) ++ " / " ++ gridItemPlacementToJs(end'));
 
 let gridRow = (start, end') =>
-  d("gridRow", string_of_int(start) ++ " / " ++ string_of_int(end'));
-let gridColumnStart = n => d("gridColumnStart", string_of_int(n));
-let gridColumnEnd = n => d("gridColumnEnd", string_of_int(n));
-let gridRowStart = n => d("gridRowStart", string_of_int(n));
-let gridRowEnd = n => d("gridRowEnd", string_of_int(n));
+  d("gridRow", gridItemPlacementToJs(start) ++ " / " ++ gridItemPlacementToJs(end'));
+let gridColumnStart = n => d("gridColumnStart", gridItemPlacementToJs(n));
+let gridColumnEnd = n => d("gridColumnEnd", gridItemPlacementToJs(n));
+let gridRowStart = n => d("gridRowStart", gridItemPlacementToJs(n));
+let gridRowEnd = n => d("gridRowEnd", gridItemPlacementToJs(n));
 let gridColumnGap = n => d("gridColumnGap", string_of_length(n));
 let gridRowGap = n => d("gridRowGap", string_of_length(n));
 let gridGap = n => d("gridGap", string_of_length(n));
